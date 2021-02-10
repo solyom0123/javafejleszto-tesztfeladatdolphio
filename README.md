@@ -18,3 +18,5 @@ Szoftver használata:
 Választás után:
 Lehetősége van léptetni a szimulációt előre, hátra és automatimatikusan.
 Kezdőpont gombbal vagy egy másik minta választásával lehet tisztázni a felületet!
+
+AUTOMATIKUS LEJÁTSZÁS ESETÉN A KÉSLELTETÉS 5 másodperc! A szerve terhermentesítése érdekében!
