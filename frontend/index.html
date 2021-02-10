@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var canvas;
+        var ctx;
+        var returnRawData = "";
+        var timer;
+        function play(){
+                timer= setInterval(next, 1000);
+        }
+        function stop(){
+            clearInterval(timer);
+        }
+        function init(){
+            canvas = document.getElementById("draw");
+            ctx = canvas.getContext("2d");
+            ctx.translate(canvas.width/2,canvas.height/2);
+        }
+
+        function start() {
+            stop();
+            var file = document.getElementById("files").value;
+            $.get("http://localhost:8080/create/"+file, function (data, status) {
+                returnRawData=data;
+                console.log(returnRawData);
+                document.getElementById("gen").innerHTML="<h2>"+ returnRawData.generation+".</h2>";
+                drawPoints();
+            });
+        }
+        function next() {
+
+            jQuery.ajax({
+                url: 'http://localhost:8080/next/',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(returnRawData),
+                contentType: 'application/json',
+                success: function(result) {
+                    returnRawData=result;
+                    console.log(returnRawData);
+                    drawPoints();
+                    document.getElementById("gen").innerHTML="<h2>"+ returnRawData.generation+".</h2>";
+                }
+            });
+
+        }
+        function prev() {
+
+            jQuery.ajax({
+                url: 'http://localhost:8080/prev/',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(returnRawData),
+                contentType: 'application/json',
+                success: function(result) {
+                    returnRawData=result;
+                    console.log(returnRawData);
+                    drawPoints();
+                    document.getElementById("gen").innerHTML=""+ returnRawData.generation;
+                }
+            });
+        }
+        function drawPoints(){
+            ctx.clearRect(canvas.width*-1, canvas.height*-1, canvas.width*2, canvas.height*2);
+
+            for(var i= -1000;i<1000;i+=20){
+                for(var j= -1000;j<1000;j+=20){
+                    ctx.beginPath();
+                    ctx.rect(i, j, 20, 20);
+                    ctx.stroke();
+                  }
+            }
+            var blocks= returnRawData.blocks;
+            for(var i = 0;i<blocks.length;i++){
+                var cells = blocks[i].cells;
+                for(var j = 0;j<cells.length;j++) {
+
+                    if(!cells[j].isDead) {
+                        ctx.fillStyle = "#FF0000";
+                        ctx.fillRect(cells[j].point.x*20, cells[j].point.y *20, 20, 20);
+                        ctx.stroke();
+                    }else{
+                        ctx.fillStyle = "#0090ff";
+                        ctx.fillRect(cells[j].point.x *20, cells[j].point.y *20, 20, 20);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<h2>Kérem válasszon egy mintát:</h2>
+<select onchange="start()" id="files">
+    <option selected value="acorn.lif">Kérem válasszon!</option>
+    <option value="acorn.lif">acorn.lif</option>
+    <option value="adder.lif">adder.lif</option>
+    <option value="ak47.lif">fuses.lif</option>
+    <option value="glider_compat.lif">glider_compat.lif</option>
+    <option value="gliders6.lif">gliders6.lif</option>
+    <option value="gun30.lif">gun30.lif</option>
+    <option value="hacksaw.lif">hacksaw.lif</option>
+    <option value="loop.lif">loop.lif</option>
+    <option value="adder.lif">adder.lif</option>
+    <option value="pi.lif">pi.lif</option>
+    <option value="pushgun.lif">pushgun.lif</option>
+    <option value="quilt.lif">quilt.lif</option>
+    <option value="race.lif">race.lif</option>
+    <option value="rakegun.lif">rakegun.lif</option>
+    <option value="randgun.lif">randgun.lif</option>
+    <option value="relay.lif">relay.lif</option>
+    <option value="revfuse.lif">revfuse.lif</option>
+    <option value="rot8.lif">rot8.lif</option>
+    <option value="round.lif">round.lif</option>
+    <option value="sawtooth.lif">sawtooth.lif</option>
+    <option value="still.lif">track.lif</option>
+    <option value="wing.lif">wing.lif</option>
+    <option value="zips.lif">zips.lif</option>
+
+</select>
+<h2>Generáció:</h2>
+<div id="gen"></div>
+<canvas id="draw" width="1000px" height="1000px" style="border:1px solid #000000;">
+
+</canvas>
+<br>
+<button onclick="start()">Kezdő Állapot</button>
+<button onclick="next()">Következő</button>
+<button onclick="prev()">Elöző</button>
+<button onclick="play()">Autoplay</button>
+<button onclick="stop()">Autoplay STOP</button>
+<script>
+    init();
+</script>
+</body>
+</html>

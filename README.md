@@ -3,12 +3,18 @@ Bebesi András Teszt feladat megoldása Dolphio Technologies Kft részére
 
 Ez a program a Dolphio Technologies Kft-nek az állás interjú tesztfeladatára készült.
 
+Backend:
 A program Spring framework-ben készült. Tartalmazza a lombok és JUnit könyvtárakat is.
+Frontend:
+Jquery könyvtár és natív JS segítségével készült!
 
 Szoftver használata:
 
-Git repository klónozása a személyi számítógépre.
-Egy IDE-ben megnyitni. És lefutattni a programot.
-Meghívni a 
-A config.conf fájl módosítássával adhatja meg a tiltott karakterek listáját. Jelenlegi verzióban egyetlen karakter tiltott az 'a' karakter. Minden tiltott karakter új sorba kerüljön. Módosítás érvényesítése nem igényel sem újra build-delést, sem újra indítást. Csak ismét meg kell hívni a végpontot.
-Megjegyzés: Junit teszt a a számításokhoz készült.
+1.Git repository klónozása a személyi számítógépre.
+2.Egy IDE-ben megnyitni projectet. És lefutattni a programot.
+3.Megnyitni egy böngészőben az frontend/index.html-t.
+4. A legördülő listából válasszon egy mintát!
+
+Választás után:
+Lehetősége van léptetni a szimulációt előre, hátra és automatimatikusan.
+Kezdőpont gombbal vagy egy másik minta választásával lehet tisztázni a felületet!
