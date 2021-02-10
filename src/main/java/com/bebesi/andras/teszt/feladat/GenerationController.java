@@ -1,6 +1,7 @@
 package com.bebesi.andras.teszt.feladat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,10 @@ public class GenerationController {
         generationService.setSimulation(simulationService.readLifFileToInitSimulation());
         return generationService.calculatePreviousGeneration(simulation.getGeneration());
 
+    }
+
+    @GetMapping("/")
+    String home() {
+        return "BEBESI ANDRÁS TESZT FELADAT MEGOLDÁS BACKEND";
     }
 }

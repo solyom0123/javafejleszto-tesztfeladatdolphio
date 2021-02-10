@@ -68,6 +68,24 @@ public class SimulationService {
         return simulation;
     }
 
+    public String readHomePage() {
+        String homepage ="";
+        try {
+            Path file = Paths.get("index.html")
+                    .toAbsolutePath().normalize();
+            BufferedReader br = new BufferedReader(new FileReader(file.toFile()));
+            String row ="";
+            while ((row = br.readLine()) != null) {
+             homepage+=row;
+            }
+           } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return homepage;
+    }
+
     private int calcCoordinateOfCell(int i, int x) {
         return x + i;
     }
