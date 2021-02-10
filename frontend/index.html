@@ -10,7 +10,7 @@
         var returnRawData = "";
         var timer;
         function play(){
-                timer= setInterval(next, 1000);
+                timer= setInterval(next, 5000);
         }
         function stop(){
             clearInterval(timer);
@@ -98,9 +98,7 @@
 <select onchange="start()" id="files">
     <option selected value="acorn.lif">Kérem válasszon!</option>
     <option value="acorn.lif">acorn.lif</option>
-    <option value="adder.lif">adder.lif</option>
     <option value="ak47.lif">fuses.lif</option>
-    <option value="glider_compat.lif">glider_compat.lif</option>
     <option value="gliders6.lif">gliders6.lif</option>
     <option value="gun30.lif">gun30.lif</option>
     <option value="hacksaw.lif">hacksaw.lif</option>
