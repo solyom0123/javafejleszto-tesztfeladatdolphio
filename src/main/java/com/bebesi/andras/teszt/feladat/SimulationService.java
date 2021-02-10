@@ -18,17 +18,8 @@ public class SimulationService {
 
     private String uploadDir;
     private String fileName;
-    private final Path fileStorageLocation;
 
     public SimulationService(@Value( "${file.upload-dir}" ) String uploadDir) {
-        this.uploadDir =uploadDir;
-        this.fileStorageLocation = Paths.get(this.uploadDir)
-                .toAbsolutePath().normalize();
-        try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception ex) {
-            throw new DocumentStorageException("Could not create the directory where the uploaded files will be stored.", ex);
-        }
     }
 
     public Simulation readLifFileToInitSimulation() {
