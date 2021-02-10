@@ -9,6 +9,7 @@
         var ctx;
         var returnRawData = "";
         var timer;
+        var link = "https://tesztfeladat.herokuapp.com/"
         function play(){
                 timer= setInterval(next, 5000);
         }
@@ -24,7 +25,7 @@
         function start() {
             stop();
             var file = document.getElementById("files").value;
-            $.get("https://tesztfeladat.herokuapp.com:8080/create/"+file, function (data, status) {
+            $.get(link+"create/"+file, function (data, status) {
                 returnRawData=data;
                 console.log(returnRawData);
                 document.getElementById("gen").innerHTML="<h2>"+ returnRawData.generation+".</h2>";
@@ -34,7 +35,7 @@
         function next() {
 
             jQuery.ajax({
-                url: 'https://tesztfeladat.herokuapp.com:8080/next/',
+                url: link+'next/',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify(returnRawData),
@@ -51,7 +52,7 @@
         function prev() {
 
             jQuery.ajax({
-                url: 'https://tesztfeladat.herokuapp.com:8080/prev/',
+                url: link+'prev/',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify(returnRawData),
